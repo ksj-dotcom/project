@@ -518,6 +518,7 @@ def build_html(A, xlsx_path, out_html, basis_date):
                      'value': sum(per_val(p, s, pv) for p in people for s in inprog_stages),
                      'color': PERIOD_COLORS.get(pv, PERIOD_COLOR_DEFAULT)} for pv in periods]
     PERIOD_JSON = json.dumps(period_chart, ensure_ascii=False)
+<<<<<<< HEAD
 
     # 담당자별 정기/비정기 구성 (진행중) — 사람마다 정기/비정기 값별 건수, 기존 색상 유지
     person_period = []
@@ -528,6 +529,8 @@ def build_html(A, xlsx_path, out_html, basis_date):
     PP_JSON = json.dumps(person_period, ensure_ascii=False)
     PLEGEND_JSON = json.dumps([{'label': pv, 'color': PERIOD_COLORS.get(pv, PERIOD_COLOR_DEFAULT)} for pv in periods],
                               ensure_ascii=False)
+=======
+>>>>>>> b1349fbdff2f941039509bafae849244fa55887d
     LISTDATA = json.dumps({'listHeader': lh, 'list': ld, 'm4Header': m4h, 'm4': m4}, ensure_ascii=False)
 
     DL = (f'<a class="dl" download="{html.escape(xname)}" '
@@ -535,8 +538,12 @@ def build_html(A, xlsx_path, out_html, basis_date):
 
     page = HTML_TMPL.format(CSS=CSS, basis=html.escape(basis_date), DL=DL, kpihtml=kpihtml,
                             HOME_TBL=HOME_TBL, FULL_TBL=FULL_TBL,
+<<<<<<< HEAD
                             LISTDATA=LISTDATA, CHART_JSON=CHART_JSON, PERIOD_JSON=PERIOD_JSON,
                             PP_JSON=PP_JSON, PLEGEND_JSON=PLEGEND_JSON, JS=JS)
+=======
+                            LISTDATA=LISTDATA, CHART_JSON=CHART_JSON, PERIOD_JSON=PERIOD_JSON, JS=JS)
+>>>>>>> b1349fbdff2f941039509bafae849244fa55887d
     open(out_html, 'w', encoding='utf-8').write(page)
     return out_html
 
@@ -682,6 +689,7 @@ $('#dlhtml').addEventListener('click',()=>{
    <div class="stack" style="width:${w}%;min-width:2px">${seg(c.sim,'var(--sim)','심의회')}${seg(c.qa,'var(--qa)','QA 인정 시험')}${seg(c.gq,'var(--gq)','GQMS 접수')}</div>
    <div class="vl">계 ${c.tot.toLocaleString()} (심${c.sim}/QA${c.qa}/GQ${c.gq})</div></div>`;}).join('');
  bindTips();})();
+<<<<<<< HEAD
 // 담당자별 정기/비정기 구성 (기존 색상 유지 + 세그먼트 호버 수치)
 (function(){const PP=JSON.parse(document.getElementById('ppdata').textContent);
  const LEG=JSON.parse(document.getElementById('plegend').textContent);
@@ -693,6 +701,8 @@ $('#dlhtml').addEventListener('click',()=>{
    <div class="stack" style="width:${w}%;min-width:2px">${seg}</div>
    <div class="vl">계 ${c.tot.toLocaleString()}건</div></div>`;}).join('');
  bindTips();})();
+=======
+>>>>>>> b1349fbdff2f941039509bafae849244fa55887d
 (function(){let page=1,per=50,q='',si=-1,sa=true;
  const head=$('#lhead'),body=$('#lbody'),pg=$('#lpager'),H=RAW.listHeader;
  function rows(){let r=RAW.list;if(q){const t=q.toLowerCase();r=r.filter(x=>x.some(c=>String(c).toLowerCase().includes(t)));}
@@ -747,6 +757,7 @@ HTML_TMPL = """<!doctype html><html lang="ko" dir="ltr"><head>
 <h1 class="pt">진행중 현황 (홈)</h1>
 <div class="sub">심의회·QA 인정 시험·GQMS 접수 단계와 정기/비정기 분해 중심 요약 · 4M 완료·Reject·4M 완료(C)·합계 열 제외</div>
 <div class="kpis">{kpihtml}</div>
+<<<<<<< HEAD
 <div class="card collapsible collapsed"><h3 class="ctoggle"><span class="b3"></span>정기/비정기 상태별 진행중 현황<span class="chev">숨기기/보기</span></h3>
 <div class="cbody"><div class="sub" style="padding:8px 18px 0;margin:0">심의회·QA 인정 시험·GQMS 접수 합산 · 막대에 마우스를 올리면 수치가 표시됩니다</div>
 <div class="pchart" id="pchart"></div></div></div>
@@ -757,6 +768,14 @@ HTML_TMPL = """<!doctype html><html lang="ko" dir="ltr"><head>
 <div class="sub" style="padding:8px 18px 0;margin:0">담당자별 진행중 건수를 정기/비정기 값으로 분류 · 막대에 마우스를 올리면 수치가 표시됩니다</div>
 <div class="legend" id="pplegend"></div>
 <div class="chart" id="ppchart"></div></div>
+=======
+<div class="card"><h3><span class="b3"></span>정기/비정기 상태별 진행중 현황</h3>
+<div class="sub" style="padding:8px 18px 0;margin:0">심의회·QA 인정 시험·GQMS 접수 합산 · 막대에 마우스를 올리면 수치가 표시됩니다</div>
+<div class="pchart" id="pchart"></div></div>
+<div class="card"><h3><span class="b3"></span>담당자별 진행중 구성 (심의회·QA·GQMS)</h3>
+<div class="legend"><span><i style="background:var(--sim)"></i>심의회</span><span><i style="background:var(--qa)"></i>QA 인정 시험</span><span><i style="background:var(--gq)"></i>GQMS 접수</span></div>
+<div class="chart" id="chart"></div></div>
+>>>>>>> b1349fbdff2f941039509bafae849244fa55887d
 <div class="card"><h3><span class="b3"></span>진행중 현황표 (정기/비정기별)</h3>{HOME_TBL}</div>
 </section>
 
@@ -786,8 +805,11 @@ HTML_TMPL = """<!doctype html><html lang="ko" dir="ltr"><head>
 <script id="ldata" type="application/json">{LISTDATA}</script>
 <script id="cdata" type="application/json">{CHART_JSON}</script>
 <script id="pdata" type="application/json">{PERIOD_JSON}</script>
+<<<<<<< HEAD
 <script id="ppdata" type="application/json">{PP_JSON}</script>
 <script id="plegend" type="application/json">{PLEGEND_JSON}</script>
+=======
+>>>>>>> b1349fbdff2f941039509bafae849244fa55887d
 <script>{JS}</script></body></html>"""
 
 
